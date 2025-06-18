@@ -29,7 +29,10 @@ Users should be able to:
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
 
+### Links
 
+- Solution URL: [https://github.com/clorensia/browser-extensions-manager-ui-main](https://github.com/clorensia/browser-extensions-manager-ui-main)
+- Live Site URL: [https://challengefementor-1.netlify.app/](https://challengefementor-1.netlify.app/)
 
 ## My process
 
