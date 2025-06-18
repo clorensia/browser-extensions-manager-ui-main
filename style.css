@@ -1,0 +1,391 @@
+:root {
+  /* Light Theme */
+  --light-neutral-900: hsl(227, 75%, 14%); /* Not directly used for light theme body/card background */
+  --light-neutral-800: hsl(226, 25%, 17%);
+  --light-neutral-700: hsl(225, 23%, 24%);
+  --light-neutral-600: hsl(226, 11%, 37%);
+  --light-neutral-300: hsl(0, 0%, 78%); /* Border, text for inactive */
+  --light-neutral-200: hsl(217, 61%, 90%); /* Active filter button bg */
+  --light-neutral-100: hsl(0, 0%, 93%); /* Card background */
+  --light-neutral-0: hsl(200, 60%, 99%); /* Body background */
+
+  /* Dark Theme */
+  --dark-neutral-900: hsl(227, 75%, 14%); /* Main body/container background */
+  --dark-neutral-800: hsl(226, 25%, 17%); /* Header/extension list header background */
+  --dark-neutral-700: hsl(225, 23%, 24%); /* Card background, filter buttons */
+  --dark-neutral-600: hsl(226, 11%, 37%); /* Inactive button text */
+  --dark-neutral-300: hsl(0, 0%, 78%); /* Not directly used */
+  --dark-neutral-200: hsl(217, 61%, 90%); /* Not directly used */
+  --dark-neutral-100: hsl(0, 0%, 93%); /* Not directly used */
+  --dark-neutral-0: hsl(200, 60%, 99%); /* Text color */
+
+  /* Red */
+  --red-400: hsl(3, 86%, 64%); /* Toggle inactive, remove button border */
+  --red-500: hsl(3, 71%, 56%); /* Remove button background */
+  --red-700: hsl(3, 77%, 44%); /* Toggle inactive */
+
+  /* Gradients */
+  --light-gradient: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%);
+  --dark-gradient: linear-gradient(180deg, #040918 0%, #091540 100%);
+
+  /* Current Theme Variables */
+  --body-bg: var(--dark-gradient);
+  --container-bg: var(--dark-neutral-900);
+  --header-bg: var(--dark-neutral-800);
+  --card-bg: var(--dark-neutral-700);
+  --text-color: var(--dark-neutral-0);
+  --description-color: var(--dark-neutral-300);
+  --filter-btn-bg: var(--dark-neutral-700);
+  --filter-btn-text: var(--dark-neutral-0);
+  --filter-btn-active-bg: var(--light-neutral-200); /* Slightly lighter for active in dark mode */
+  --filter-btn-active-text: var(--dark-neutral-900);
+  --remove-btn-bg: var(--red-500);
+  --remove-btn-text: var(--dark-neutral-0);
+  --toggle-track-active-bg: var(--light-neutral-200);
+  --toggle-track-inactive-bg: var(--red-400);
+  --toggle-thumb-bg: var(--light-neutral-0);
+  --header-logo-filter: none; /* For dark mode, original color */
+}
+
+.theme-light {
+  --body-bg: var(--light-gradient);
+  --container-bg: var(--light-neutral-0); /* Main container background in light mode */
+  --header-bg: var(--light-neutral-100);
+  --card-bg: var(--light-neutral-100);
+  --text-color: var(--light-neutral-800);
+  --description-color: var(--light-neutral-600);
+  --filter-btn-bg: var(--light-neutral-100);
+  --filter-btn-text: var(--light-neutral-600);
+  --filter-btn-active-bg: var(--light-neutral-200);
+  --filter-btn-active-text: var(--light-neutral-900);
+  --remove-btn-bg: var(--red-500);
+  --remove-btn-text: var(--dark-neutral-0);
+  --toggle-track-active-bg: var(--light-neutral-200);
+  --toggle-track-inactive-bg: var(--red-400);
+  --toggle-thumb-bg: var(--light-neutral-0);
+  --header-logo-filter: invert(1); /* Adjust for light theme to be visible */
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--body-bg);
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  background-color: var(--container-bg);
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 1100px;
+  overflow: hidden;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--header-bg);
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header-logo {
+  width: 2rem;
+  height: 2rem;
+  filter: var(--header-logo-filter);
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Theme Switcher */
+.theme-switcher {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle {
+  display: none;
+}
+
+.theme-toggle-label {
+  display: flex;
+  align-items: center;
+  width: 4rem;
+  height: 2rem;
+  background-color: var(--card-bg);
+  border-radius: 1rem;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle-label .sun-icon,
+.theme-toggle-label .moon-icon {
+  position: absolute;
+  width: 1.2rem;
+  height: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: opacity 0.3s ease;
+}
+
+.theme-toggle-label .sun-icon {
+  left: 0.5rem;
+  opacity: 0.5;
+}
+
+.theme-toggle-label .moon-icon {
+  right: 0.5rem;
+  opacity: 1;
+}
+
+.theme-toggle:checked + .theme-toggle-label .sun-icon {
+  opacity: 1;
+}
+
+.theme-toggle:checked + .theme-toggle-label .moon-icon {
+  opacity: 0.5;
+}
+
+.theme-toggle-label .slider {
+  position: absolute;
+  width: 1.6rem;
+  height: 1.6rem;
+  background-color: var(--toggle-thumb-bg);
+  border-radius: 50%;
+  left: 0.2rem;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:checked + .theme-toggle-label .slider {
+  transform: translateX(1.8rem);
+}
+
+/* Main Content */
+.main-content {
+  padding: 2rem;
+}
+
+.extensions-list-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.extensions-heading {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.filter-btn {
+  background-color: var(--filter-btn-bg);
+  color: var(--filter-btn-text);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.filter-btn:hover {
+  background-color: var(--filter-btn-active-bg);
+  color: var(--filter-btn-active-text);
+}
+
+.filter-btn.active {
+  background-color: var(--filter-btn-active-bg);
+  color: var(--filter-btn-active-text);
+}
+
+/* Extensions Grid */
+.extensions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.extension-card {
+  background-color: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.extension-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.extension-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.extension-logo {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+}
+
+.extension-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.extension-description {
+  font-size: 0.95rem;
+  color: var(--description-color);
+  flex-grow: 1; /* Pushes bottom elements down */
+}
+
+.extension-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.remove-btn {
+  background-color: var(--remove-btn-bg);
+  color: var(--remove-btn-text);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.remove-btn:hover {
+  background-color: var(--red-700);
+}
+
+/* Toggle Switch for isActive */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 3.5rem;
+  height: 1.75rem;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--toggle-track-inactive-bg);
+  transition: .4s;
+  border-radius: 1.75rem;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4rem;
+  width: 1.4rem;
+  left: 0.2rem;
+  bottom: 0.175rem;
+  background-color: var(--toggle-thumb-bg);
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: var(--toggle-track-active-bg);
+}
+
+input:focus + .toggle-slider {
+  box-shadow: 0 0 1px var(--toggle-track-active-bg);
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(1.75rem);
+}
+
+/* Attribution */
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  padding: 20px;
+  color: var(--description-color);
+}
+.attribution a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* Media Queries for Responsiveness */
+@media (min-width: 768px) {
+  .extensions-list-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0; /* Remove internal padding if desired for larger screens */
+  }
+
+  .header {
+    padding: 2rem 3rem;
+  }
+
+  .main-content {
+    padding: 2.5rem 3rem;
+  }
+
+  .extensions-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on larger desktops */
+    gap: 2rem;
+  }
+}
